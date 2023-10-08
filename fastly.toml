@@ -1,12 +1,29 @@
 # This file describes a Fastly Compute@Edge package. To learn more visit:
 # https://developer.fastly.com/reference/fastly-toml/
 
-authors = ["<oss@fastly.com>"]
-description = "An empty application template for the Fastly Compute@Edge environment which simply returns a 200 OK response."
+authors = ["@doabledanny"]
+description = "A starter kit for using HarperDB on Fastly Compute@Edge."
 language = "javascript"
 manifest_version = 3
-name = "Empty starter for JavaScript"
+name = "Fastly Compute@Edge Starter kit for HarperDB"
+service_id = ""
 
 [scripts]
-build = "npm run build"
-post_init = "npm install"
+  build = "npm run build"
+  post_init = "npm install"
+
+[local_server]
+
+  [local_server.backends]
+
+    [local_server.backends.harperdb]
+      url = "https://cloud-1-username.harperdbcloud.com"
+
+  [local_server.dictionaries]
+
+    [local_server.dictionaries.harperdb_env_variables]
+      format = "inline-toml"
+
+      [local_server.dictionaries.harperdb_env_variables.contents]
+        HARPERDB_URL = "https://cloud-1-username.harperdbcloud.com"
+        HARPERDB_PW = "<your-harperdb-password>"
