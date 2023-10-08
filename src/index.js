@@ -66,6 +66,18 @@ async function handleRequest(event) {
     return new Response(JSON.stringify(data), { status: 200 });
   }
 
+  // e.g PUT /posts/{id}
+  // if (method == "PUT" && pathname.match(`\/posts\/[^\/]+(\/)?$`)) {
+  //   const id = decodeURI(pathname.split('/')[2]);
+  //   ...
+  // }
+
+  // e.g DELETE /posts/{id}
+  // if (method == "DELETE" && pathname.match(`\/posts\/[^\/]+(\/)?$`)) {
+  //   const id = decodeURI(pathname.split('/')[2]);
+  //   ...
+  // }
+
   return new Response("We couldn't find the page that you requested.", {
     status: 404,
   });
