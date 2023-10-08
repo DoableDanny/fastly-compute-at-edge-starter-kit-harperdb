@@ -50,12 +50,12 @@ When prompted, provide the following values:
 
 **Create a private dictionary using the [web interface](https://docs.fastly.com/en/guides/working-with-dictionaries-using-the-web-interface#creating-a-dictionary), [API](https://developer.fastly.com/reference/api/dictionaries/dictionary/#create-dictionary) or [fastly CLI](https://developer.fastly.com/reference/cli/dictionary/create/):**
 
-Dictionary name = harperdb_env_variables
-Set write-only = true
-Create the following dictionary items:
+- Dictionary name = harperdb_env_variables
+- Set write-only = true
+- Create the following dictionary items:
 
-HARPERDB_URL = <your-harperdb-url>
-HARPERDB_PW = <your-harperdb-password>
+  - HARPERDB_URL = <your-harperdb-url>
+  - HARPERDB_PW = <your-harperdb-password>
 
 ## About HarperDB
 
