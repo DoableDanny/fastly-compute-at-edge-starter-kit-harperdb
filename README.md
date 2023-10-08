@@ -10,37 +10,53 @@ An empty application template for the Fastly Compute@Edge environment which simp
 
 Please see our [SECURITY.md](SECURITY.md) for guidance on reporting security-related issues.
 
-## Notes
+## About this Starter Kit
 
-To run locally:
+This starter kit provides you with everything you need to begin interacting with your HarperDB database. The main `index.js` file shows you how you can build out an REST API with Compute@Edge. This starter shows you some example routes for different request types (e.g. /GET, /POST, /PUT, /DELETE) and paths, and shows you how you can interact with your HarperDB database to fetch and insert data, and then respond to the user.
+
+## HarperDB setup
+
+Follow the [HarperDB getting started instructions](https://docs.harperdb.io/docs/getting-started) to get your instance url and password. For local development, copy and paste the value of the HarperDB instance url into \[local_server.backends.harperdb\].url and HARPERDB_URL in the fastly.toml file. Also copy and paste in your HarperDB password into HARPERDB_PW.
+
+For the example routes in this starter kit to work, in HarperDB create a schema called `blog`. Within the `blog` schema, create a table called `posts` with hash_attribute `id`.
+
+## Test locally
 
 `fastly compute serve --watch`
 
-To setup your Fastly API key
+## Deploy using [Fastly CLI](https://developer.fastly.com/learning/compute/#install-the-fastly-cli)
 
-`fastly profile create`
+**Deploy the project:**
 
-Deploy app:
+`fastly compute init --from={YOUR REPO URL}`
 
-`fastly compute deploy`
+Enter `y` when asked if you want to run the post_init script from the fastly.toml file.
 
-RESULT after deploying:
+`fastly compute publish`
 
-✓ Creating domain 'genuinely-trusty-tetra.edgecompute.app'
-✓ Uploading package
-✓ Activating service (version 1)
-✗ Checking service availability (status: 500)
+When prompted, provide the following values:
 
-WARNING: The service has been successfully deployed and activated, but the service 'availability' check timed
-out (we were looking for a non-500 status code but the last status code response was: 500). If using a custom domain,
-please be sure to check your DNS settings. Otherwise, your application might be taking longer than usual to deploy
-across our global network. Please continue to check the service URL and if still unavailable please contact Fastly
-support.
+- Create new service: [y/N] y
 
-Manage this service at:
-https://manage.fastly.com/configure/services/3baRMwlQxAiuYpS0c0CeS7
+- Service name: [HarperDB-Starter-Kit] Whatever you want to call this
 
-View this service at:
-https://genuinely-trusty-tetra.edgecompute.app
+- Domain: [likely-enhanced-robin.edgecompute.app] leave as default or provide custom domain
 
-SUCCESS: Deployed package (service 3baRMwlQxAiuYpS0c0CeS7, version 1)
+- Backend (hostname or IP address, or leave blank to stop adding backends): your-harperdb-instance.harperdbcloud.com e.g. cloud-1-username.harperdbcloud.com
+
+- Backend port number: [443] 443
+
+- Backend name: [backend_1] harperdb
+
+**Create a private dictionary using the [web interface](https://docs.fastly.com/en/guides/working-with-dictionaries-using-the-web-interface#creating-a-dictionary), [API](https://developer.fastly.com/reference/api/dictionaries/dictionary/#create-dictionary) or [fastly CLI](https://developer.fastly.com/reference/cli/dictionary/create/):**
+
+Dictionary name = harperdb_env_variables
+Set write-only = true
+Create the following dictionary items:
+
+HARPERDB_URL = <your-harperdb-url>
+HARPERDB_PW = <your-harperdb-password>
+
+## About HarperDB
+
+HarperDB is a database, streaming broker, and application development platform. It has a flexible, component-based architecture, simple HTTP/S interface, and a high-performance single-model data store that accommodates any data structure.
