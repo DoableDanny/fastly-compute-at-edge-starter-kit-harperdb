@@ -24,14 +24,26 @@ async function handleRequest(event) {
   );
 
   // GET /
-  // Makes a call to HarperDB to create a new schema called "blog"
-  if (method === "GET" && pathname == "/") {
+  // A simple test route that just returns the text "Hello there".
+  if (method === "GET" && pathname === "/") {
+    return new Response("Hello there");
+  }
+
+  // GET /posts/:id
+  // Makes a call to HarperDB to fetch the post with id = :id
+  if (method === "GET" && pathname.match(`\/posts\/[^\/]+(\/)?$`)) {
+    const id = decodeURI(pathname.split("/")[2]);
+
+    // Fetch the post from HarperDB
     const { response, data } = await harperDbClient.request({
-      operation: "create_schema",
+      operation: "search_by_hash",
       schema: "blog",
+      table: "posts",
+      hash_values: [id],
+      get_attributes: ["author", "title"], // can specify the columns you want to receive here.
     });
 
-    return new Response(JSON.stringify(data), { status: 200 });
+    return new Response(JSON.stringify(data), { status: response.status });
   }
 
   // GET /posts
@@ -41,7 +53,7 @@ async function handleRequest(event) {
       operation: "sql",
       sql: "SELECT * FROM blog.posts",
     });
-    return new Response(JSON.stringify(data), { status: 200 });
+    return new Response(JSON.stringify(data), { status: response.status });
   }
 
   // POST /posts
@@ -63,7 +75,7 @@ async function handleRequest(event) {
       ],
     });
 
-    return new Response(JSON.stringify(data), { status: 200 });
+    return new Response(JSON.stringify(data), { status: response.status });
   }
 
   // e.g PUT /posts/{id}
