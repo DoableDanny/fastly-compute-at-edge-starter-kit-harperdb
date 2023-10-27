@@ -52,13 +52,13 @@ When prompted, provide the following values:
 
 For local development, in the `fastly.toml` file, update the `[local_server.config_stores.harperdb.contents]` variables:
 
-- HARPERDB_URL = <your-harperdb-url>
-- HARPERDB_PW = <your-harperdb-password>
+- HARPERDB_URL = your-harperdb-url e.g. "https://cloud-1-username.harperdbcloud.com
+- HARPERDB_PW = your-harperdb-password
 
 Once published to Fastly, [create a config store using the web interface](https://docs.fastly.com/en/guides/working-with-config-stores#creating-a-config-store). Name the config store `harperdb` and add the following variables:
 
-- HARPERDB_URL = <your-harperdb-url>
-- HARPERDB_PW = <your-harperdb-password>
+- HARPERDB_URL = your-harperdb-url e.g. https://cloud-1-username.harperdbcloud.com
+- HARPERDB_PW = your-harperdb-password
 
 Once the congig store is created, you need to [link the config store](https://docs.fastly.com/en/guides/working-with-config-stores#linking-config-stores-to-a-service).
 
