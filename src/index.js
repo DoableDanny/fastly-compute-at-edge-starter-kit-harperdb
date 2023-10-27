@@ -12,7 +12,7 @@ async function handleRequest(event) {
   const requestUrl = new URL(event.request.url);
   const pathname = requestUrl.pathname;
 
-  const dict = new ConfigStore("harperdb_env_variables");
+  const dict = new ConfigStore("harperdb");
   const harperDbUrl = dict.get("HARPERDB_URL");
   const harperDbPassword = dict.get("HARPERDB_PW");
   const backend = "harperdb";

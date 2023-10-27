@@ -13,17 +13,14 @@ service_id = ""
   post_init = "npm install"
 
 [local_server]
+  [local_server.config_stores]
+    [local_server.config_stores.harperdb]
+      format = "inline-toml"
+    [local_server.config_stores.harperdb.contents]
+      "HARPERDB_URL" = "https://cloud-1-username.harperdbcloud.com"
+      "HARPERDB_PW" = "<your-harperdb-password>"
 
-  [local_server.backends]
+[local_server.backends]
 
     [local_server.backends.harperdb]
       url = "https://cloud-1-username.harperdbcloud.com"
-
-  [local_server.dictionaries]
-
-    [local_server.dictionaries.harperdb_env_variables]
-      format = "inline-toml"
-
-      [local_server.dictionaries.harperdb_env_variables.contents]
-        HARPERDB_URL = "https://cloud-1-username.harperdbcloud.com"
-        HARPERDB_PW = "<your-harperdb-password>"
