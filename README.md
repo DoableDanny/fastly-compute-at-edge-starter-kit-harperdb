@@ -48,14 +48,19 @@ When prompted, provide the following values:
 
 - Backend name: [backend_1] harperdb
 
-**Create a private dictionary using the [web interface](https://docs.fastly.com/en/guides/working-with-dictionaries-using-the-web-interface#creating-a-dictionary), [API](https://developer.fastly.com/reference/api/dictionaries/dictionary/#create-dictionary) or [fastly CLI](https://developer.fastly.com/reference/cli/dictionary/create/):**
+**Create a config store for your environment variables**
 
-- Dictionary name = harperdb_env_variables
-- Set write-only = true
-- Create the following dictionary items:
+For local development, in the `fastly.toml` file, update the `[local_server.config_stores.harperdb.contents]` variables:
 
-  - HARPERDB_URL = <your-harperdb-url>
-  - HARPERDB_PW = <your-harperdb-password>
+- HARPERDB_URL = <your-harperdb-url>
+- HARPERDB_PW = <your-harperdb-password>
+
+Once published to Fastly, [create a config store using the web interface](https://docs.fastly.com/en/guides/working-with-config-stores#creating-a-config-store). Name the config store `harperdb` and add the following variables:
+
+- HARPERDB_URL = <your-harperdb-url>
+- HARPERDB_PW = <your-harperdb-password>
+
+Once the congig store is created, you need to [link the config store](https://docs.fastly.com/en/guides/working-with-config-stores#linking-config-stores-to-a-service).
 
 ## About HarperDB
 
